@@ -445,40 +445,93 @@ a { color: inherit; text-decoration: none; }
 
 .about-text .accent { color: var(--purple-glow); }
 
-.contact-list {
+/* ---------- Kontaktní formulář (bez viditelného e-mailu na stránce) ---------- */
+
+.contact-form {
   margin-top: 2.4rem;
   border-top: 1px solid var(--line);
+  padding-top: 1.8rem;
 }
 
-.contact-list a,
-.contact-list .row {
-  display: flex;
-  justify-content: space-between;
-  padding: 1.1rem 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 0.95rem;
-  transition: color 0.25s ease, border-color 0.25s ease;
-}
+.form-row { margin-bottom: 1.5rem; }
 
-.contact-list a:hover {
-  color: var(--purple-glow);
-  border-color: var(--purple-line);
-}
-
-.contact-list .label {
+.form-row label {
+  display: block;
   color: var(--muted);
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  margin-bottom: 0.6rem;
 }
 
-.note {
-  margin-top: 1.6rem;
-  font-size: 0.8rem;
-  color: var(--muted);
-  border-left: 1px solid var(--purple-line);
-  padding-left: 1rem;
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  padding: 0.6rem 0;
+  transition: border-color 0.25s ease;
+  resize: vertical;
 }
+
+.form-row input:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: var(--purple-glow);
+}
+
+.form-row input::placeholder,
+.form-row textarea::placeholder {
+  color: var(--muted);
+  opacity: 0.55;
+}
+
+/* Honeypot pole proti spam botům — pro lidi neviditelné */
+.form-row.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: 0;
+}
+
+.form-submit {
+  background: none;
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.8rem;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.form-submit:hover {
+  border-color: var(--purple-glow);
+  color: var(--purple-glow);
+}
+
+.form-submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.form-status {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  min-height: 1.2em;
+}
+
+.form-status.is-success { color: var(--purple-glow); }
+.form-status.is-error { color: #c98a8a; }
 
 /* ---------- Patička ---------- */
 
@@ -532,25 +585,49 @@ a { color: inherit; text-decoration: none; }
   <section class="hero container" style="min-height: 62vh;">
     <div class="hero-eyebrow">O mně</div>
     <h1>Tvořím vlastní světy.</h1>
+    <p>Hrdý manžel, fotograf, podnikatel.</p>
   </section>
 
   <section class="reveal-item">
     <div class="container">
       <div class="about-grid">
         <div class="artwork-frame" style="--w: 100%">
-          <div class="placeholder-art" style="--ar: 2600 / 1401">
+          <div class="placeholder-art" style="--ar: 3 / 2">
             <img src="assets/img/o-mne/1.jpg" alt="Any.body Art — portrét" loading="lazy" decoding="async">
           </div>
         </div>
         <div>
           <div class="about-text">
-            <p class="about-lead">Hrdý manžel, fotograf, podnikatel.</p>
             <p>Fotím přes deset let — od sportu přes svatby, portréty, nude a koncerty. Fotografie nikdy nebyla má obživa, proto když tvořím — hledám u fotografie hlavně smysl. Postupně jsem se propracoval k tvorbě světů podle sebe, vlastních představ a projektů.</p>
             <p>Při focení nepotřebuji zkušenou modelku. Potřebuji důvěru, trochu času a ochotu společně hledat obraz, který stojí za to vytvořit.</p>
             <p>Fotím v Praze, nejčastěji s přirozeným nebo jednoduchým studiovým světlem. Bez početného týmu a zbytečného ruchu kolem. Intimita před objektivem pro mě znamená především odpovědnost — hranice určuje vždy člověk před objektivem.</p>
             <p>Moje jméno na tomto webu nenajdete záměrně. <span class="accent">Any.body může být kdokoliv</span> — fotograf i člověk před objektivem. Pokud mě oslovíte, samozřejmě už anonymní nezůstávám.</p>
             <p>Pokud vás má tvorba zaujala, napište mi. Pak zjistíme, jestli má smysl vytvořit něco společně.</p>
           </div>
+
+          <form class="contact-form" id="contact-form" action="https://formsubmit.co/ajax/prachar@tcpr.cz" method="POST">
+            <input type="hidden" name="_subject" value="Nová zpráva z Any.body Art">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <div class="form-row">
+              <label for="cf-name">Jméno</label>
+              <input type="text" id="cf-name" name="name" placeholder="Jak vám mám říkat?" required>
+            </div>
+            <div class="form-row">
+              <label for="cf-email">E-mail</label>
+              <input type="email" id="cf-email" name="email" placeholder="Kam odpovědět?" required>
+            </div>
+            <div class="form-row">
+              <label for="cf-message">Zpráva</label>
+              <textarea id="cf-message" name="message" rows="5" placeholder="Na čem spolu budeme spolupracovat?" required></textarea>
+            </div>
+            <div class="form-row honeypot" aria-hidden="true">
+              <label for="cf-company">Nechte prázdné</label>
+              <input type="text" id="cf-company" name="_honey" tabindex="-1" autocomplete="off">
+            </div>
+            <button type="submit" class="form-submit">Odeslat</button>
+            <p class="form-status" role="status"></p>
+          </form>
         </div>
       </div>
     </div>
@@ -630,6 +707,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* Žádné glow objekty ani jejich JS už na stránce nejsou — pozadí
      (jemný kouř) je čisté CSS, animované jen přes transform. */
+
+  /* ---- Kontaktní formulář — odešle se přes fetch, bez opuštění
+     stránky a bez zobrazení e-mailu kdekoliv v kódu stránky. Adresa
+     je uložená jen v nastavení Formspree účtu, ne tady. ---- */
+  const form = document.getElementById("contact-form");
+  if (form) {
+    const status = form.querySelector(".form-status");
+    const submitBtn = form.querySelector(".form-submit");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      // Honeypot — pokud je vyplněné skryté pole, jde o bota, tiše to zahodíme.
+      if (form.elements._honey && form.elements._honey.value) {
+        status.textContent = "Díky, zpráva odeslána.";
+        status.className = "form-status is-success";
+        form.reset();
+        return;
+      }
+      submitBtn.disabled = true;
+      status.textContent = "Odesílám…";
+      status.className = "form-status";
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        if (res.ok) {
+          form.reset();
+          status.textContent = "Díky, zpráva odeslána. Ozvu se co nejdřív.";
+          status.className = "form-status is-success";
+        } else {
+          status.textContent = "Něco se nepovedlo. Zkus to prosím znovu.";
+          status.className = "form-status is-error";
+        }
+      } catch (err) {
+        status.textContent = "Něco se nepovedlo. Zkontroluj připojení a zkus to znovu.";
+        status.className = "form-status is-error";
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
 });
 
 </script>
