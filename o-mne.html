@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Any.body Art — o mně</title>
+<meta name="description" content="Any.body Art — o fotografovi a nabídka spolupráce.">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjMDYwNDA3Ii8+CiAgPGxpbmUgeDE9IjE0IiB5MT0iNDgiIHgyPSIzMiIgeTI9IjE0IiBzdHJva2U9IiNiMTdhZmYiIHN0cm9rZS13aWR0aD0iMi40Ii8+CiAgPGxpbmUgeDE9IjMyIiB5MT0iMTQiIHgyPSI1MCIgeTI9IjQ4IiBzdHJva2U9IiNiMTdhZmYiIHN0cm9rZS13aWR0aD0iMi40Ii8+CiAgPGxpbmUgeDE9IjIwIiB5MT0iMzYiIHgyPSI0NCIgeTI9IjM2IiBzdHJva2U9IiNiMTdhZmYiIHN0cm9rZS13aWR0aD0iMi40Ii8+Cjwvc3ZnPgo=" type="image/svg+xml">
+<style>
+/* ==========================================================================
+   ANY.BODY ART — koncept 2: "Galerie ve tmě"
+   Černá + tmavě zářivá fialová. Minimalismus. Každá fotka má svůj prostor,
+   žádné karusely, žádné husté grid mřížky.
+   ========================================================================== */
+
+:root {
+  --bg: #060407;
+  --ink: #f3f1f4;
+  --muted: #8a8590;
+
+  --purple: #564b58;
+  --purple-glow: #ab8bb1;
+  --purple-deep: #1b181b;
+  --purple-line: rgba(171, 139, 177, 0.22);
+
+  --line: rgba(243, 241, 244, 0.09);
+  --line-strong: rgba(243, 241, 244, 0.22);
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --container: 2000px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-weight: 300;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Jemný "kouř" na pozadí — místo strojové mřížky. Statická vrstva,
+   BEZ animace: position: fixed + běžící CSS animace transformu
+   dělaly v Safari problém — vrstva se přestala chovat jako fixed
+   a jela s obsahem při scrollu. Bez animace zůstává spolehlivě
+   přišpendlená k viewportu (to je celý smysl "fixed" pozadí).
+   Víc přechodových zastávek v gradientu, ať nejsou vidět kroužky
+   (color banding) na velké ploše. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
+  background-image:
+    radial-gradient(circle 32vw at 18% 22%, rgba(243,241,244,0.13) 0%, rgba(243,241,244,0.095) 18%, rgba(243,241,244,0.058) 38%, rgba(243,241,244,0.03) 58%, rgba(243,241,244,0.012) 76%, transparent 92%),
+    radial-gradient(circle 26vw at 70% 12%, rgba(243,241,244,0.11) 0%, rgba(243,241,244,0.08) 20%, rgba(243,241,244,0.048) 40%, rgba(243,241,244,0.023) 60%, rgba(243,241,244,0.01) 78%, transparent 92%),
+    radial-gradient(circle 30vw at 44% 46%, rgba(243,241,244,0.12) 0%, rgba(243,241,244,0.085) 20%, rgba(243,241,244,0.052) 40%, rgba(243,241,244,0.025) 60%, rgba(243,241,244,0.011) 78%, transparent 92%),
+    radial-gradient(circle 24vw at 10% 66%, rgba(243,241,244,0.11) 0%, rgba(243,241,244,0.08) 20%, rgba(243,241,244,0.048) 40%, rgba(243,241,244,0.023) 60%, rgba(243,241,244,0.01) 78%, transparent 92%),
+    radial-gradient(circle 30vw at 86% 78%, rgba(243,241,244,0.12) 0%, rgba(243,241,244,0.085) 20%, rgba(243,241,244,0.052) 40%, rgba(243,241,244,0.025) 60%, rgba(243,241,244,0.011) 78%, transparent 92%),
+    radial-gradient(circle 26vw at 30% 94%, rgba(243,241,244,0.1) 0%, rgba(243,241,244,0.075) 20%, rgba(243,241,244,0.045) 40%, rgba(243,241,244,0.022) 60%, rgba(243,241,244,0.009) 78%, transparent 92%);
+  background-attachment: fixed;
+}
+
+/* pomalu dýchající fialová záře v pozadí, velmi jemná */
+body::after {
+  content: "";
+  position: fixed;
+  top: -20%;
+  left: 50%;
+  width: 140vw;
+  height: 140vw;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, var(--purple-deep) 0%, transparent 55%);
+  opacity: 0.35;
+  z-index: 0;
+  pointer-events: none;
+  animation: breathe 14s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.28; }
+  50% { opacity: 0.45; }
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Hlavička ---------- */
+
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem clamp(1.25rem, 4vw, 3rem);
+  background: transparent;
+  transition: background 0.4s ease, border-color 0.4s ease, padding 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.site-header.is-scrolled {
+  background: rgba(6, 4, 7, 0.86);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding-top: 1.1rem;
+  padding-bottom: 1.1rem;
+}
+
+.logo {
+  font-size: 0.95rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.logo span { color: var(--purple-glow); }
+
+.nav-desktop {
+  display: flex;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.nav-desktop a {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  position: relative;
+  padding-bottom: 0.3rem;
+}
+
+.nav-desktop a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--purple-glow);
+  box-shadow: 0 0 8px var(--purple-glow);
+  transition: width 0.3s ease;
+}
+
+.nav-desktop a:hover,
+.nav-desktop a.is-active { color: var(--ink); }
+
+.nav-desktop a.is-active::after,
+.nav-desktop a:hover::after { width: 100%; }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 200;
+}
+
+.hamburger span {
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: var(--ink);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2) { opacity: 0; }
+.hamburger.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.nav-mobile {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.2rem;
+  transform: translateY(-100%);
+  transition: transform 0.4s ease;
+  z-index: 150;
+}
+
+.nav-mobile.is-open { transform: translateY(0); }
+
+.nav-mobile a {
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nav-mobile a.is-active,
+.nav-mobile a:hover { color: var(--ink); }
+
+@media (max-width: 780px) {
+  .nav-desktop { display: none; }
+  .hamburger { display: flex; }
+}
+
+/* ---------- Hero ---------- */
+
+/* Hero nezabírá celou výšku okna — dole nechává proužek první fotky
+   trvale vykukovat, aby bylo přirozeně jasné, že se má scrollovat dál. */
+.hero {
+  min-height: calc(100vh - clamp(90px, 11vw, 170px));
+  min-height: calc(100svh - clamp(90px, 11vw, 170px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  padding-top: 6rem;
+}
+
+.hero-eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--purple-glow);
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 7.4vw, 5.8rem);
+  font-weight: 200;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.6rem;
+  max-width: 22ch;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 42ch;
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  margin: 0;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.6rem;
+  left: clamp(1.25rem, 4vw, 3rem);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.hero-scroll::after {
+  content: "";
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(var(--purple-glow), transparent);
+  animation: scrollline 2.4s ease-in-out infinite;
+}
+
+@keyframes scrollline {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  50.01% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ---------- Sekce obecně ---------- */
+
+.section-intro { padding: clamp(3rem, 8vw, 5rem) 0 0; }
+
+.section-intro h2 {
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+  font-weight: 200;
+  margin: 0 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.section-intro p {
+  color: var(--muted);
+  max-width: 56ch;
+  font-size: 0.95rem;
+}
+
+/* ---------- Galerie / výstavní stěna ----------
+   Každý exponát je samostatný "prostor" — hodně vzduchu okolo,
+   střídavé zarovnání a velikosti, žádná pevná mřížka. */
+
+.gallery-walk {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(5rem, 16vw, 11rem);
+  /* Bez horního odsazení — první exponát navazuje hned pod hero,
+     takže proužek, co hero nechává vykukovat, je vždy vidět
+     (nezávisle na poměru stran první fotky). Dole jen malý dostatek
+     prostoru, ať patička navazuje stejně těsně jako na stránce O mně. */
+  padding: 0 0 clamp(1rem, 2.5vw, 1.75rem);
+  /* Vlastní stacking context nad glow tvary na pozadí (ty mají z-index:0),
+     stejně jako .container — bez toho by mohl glow "prosvítat" přes
+     bílou plochu fotky. */
+  position: relative;
+  z-index: 1;
+}
+
+.artwork {
+  display: flex;
+  position: relative;
+}
+
+.artwork.align-left { justify-content: flex-start; }
+.artwork.align-center { justify-content: center; }
+.artwork.align-right { justify-content: flex-end; }
+
+.artwork-frame {
+  position: relative;
+  width: 100%;
+  max-width: var(--w, 620px);
+}
+
+/* fialová záře za exponátem — jemné stálé "nasvícení", zesílí při hoveru */
+.artwork-frame::before {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  background: radial-gradient(circle, rgba(86, 75, 88, 0.5) 0%, rgba(86, 75, 88, 0.18) 45%, transparent 72%);
+  filter: blur(24px);
+  z-index: -1;
+  opacity: 0.45;
+  transition: opacity 0.5s ease;
+}
+
+.artwork-frame:hover::before { opacity: 1; }
+
+.placeholder-art {
+  aspect-ratio: var(--ar, 4 / 5);
+  background: #f2f0f2;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  transition: transform 0.5s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+.artwork-frame:hover .placeholder-art {
+  transform: scale(1.015);
+  box-shadow: 0 0 0 1px var(--purple-line), 0 30px 80px -20px rgba(86, 75, 88, 0.6);
+}
+
+.placeholder-art svg {
+  width: 20%;
+  min-width: 34px;
+  max-width: 72px;
+  height: auto;
+  opacity: 0.8;
+  transition: opacity 0.5s ease, transform 0.9s cubic-bezier(.16,1,.3,1);
+}
+
+.artwork-frame:hover .placeholder-art svg {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+/* ---------- Scroll reveal (bezpečné: bez JS je vše vidět) ---------- */
+
+.reveal-item {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-item.js-armed {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 1.15s cubic-bezier(.22,1,.36,1), transform 1.15s cubic-bezier(.22,1,.36,1);
+  will-change: opacity, transform;
+}
+
+.reveal-item.js-armed.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+/* ---------- O mně / kontakt ---------- */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .about-grid { grid-template-columns: 1fr; }
+}
+
+.about-text p { color: var(--muted); }
+.about-text p + p { margin-top: 1.1rem; }
+
+.contact-list {
+  margin-top: 2.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.contact-list a,
+.contact-list .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.contact-list a:hover {
+  color: var(--purple-glow);
+  border-color: var(--purple-line);
+}
+
+.contact-list .label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.note {
+  margin-top: 1.6rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  border-left: 1px solid var(--purple-line);
+  padding-left: 1rem;
+}
+
+/* ---------- Patička ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer a:hover { color: var(--purple-glow); }
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">ANY<span>.</span>BODY <span>ART</span></a>
+  <nav class="nav-desktop">
+    <a href="index.html">Art</a>
+<a href="koncerty.html">Koncerty</a>
+<a href="o-mne.html" class="is-active">O mně</a>
+  </nav>
+  <button class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav class="nav-mobile">
+  <a href="index.html">Art</a>
+<a href="koncerty.html">Koncerty</a>
+<a href="o-mne.html" class="is-active">O mně</a>
+</nav>
+
+<main>
+
+  <section class="hero container" style="min-height: 62vh;">
+    <div class="hero-eyebrow">O mně</div>
+    <h1>Fotograf, ne retušér.</h1>
+  </section>
+
+  <section class="reveal-item">
+    <div class="container">
+      <div class="about-grid">
+        <div class="artwork-frame" style="--w: 100%">
+          <div class="placeholder-art" style="--ar: 4 / 5">
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M34 37c0-11.5 8-20.5 19-20.5S72 25 72 35.5c0 10-7.5 14.5-13 19-4.5 3.5-7 7.5-7 13.5" stroke="#0a0a0a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="52" cy="82.5" r="3.6" fill="#0a0a0a"/>
+</svg>
+          </div>
+        </div>
+        <div>
+          <div class="about-text">
+            <p>Fotím s přestávami už přes 10 let. Nejvíc mi sedí přirozený, často temný glamour — bez přehnané retuše, kde zmizí každá křivka a vráska. Práci odvádím na scéně, ne v post-produkci.</p>
+            <p>Vedle toho fotím koncerty — energii pódia a davu takovou, jaká je.</p>
+            <p>Pracuji na Sony A7III, zpracování v Lightroom Classic.</p>
+            <p>Máš zájem o focení? Napiš mi.</p>
+          </div>
+
+          <div class="contact-list">
+            <a href="mailto:prachar@tcpr.cz">
+              <span class="label">E-mail</span>
+              <span>prachar@tcpr.cz</span>
+            </a>
+            <a href="tel:+420000000000">
+              <span class="label">Telefon</span>
+              <span>+420 000 000 000</span>
+            </a>
+            <a href="#" target="_blank" rel="noopener">
+              <span class="label">Instagram</span>
+              <span>@anybody.art</span>
+            </a>
+          </div>
+
+          <p class="note">Kontaktní formulář zatím chybí — doplníme (Formspree nebo obdoba). Do té doby prosím napiš přímo na e-mail.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer container">
+  <span>© 2026 Any.body Art</span>
+  <div class="social-links">
+    <a href="#" target="_blank" rel="noopener">Instagram</a>
+    <a href="o-mne.html">Kontakt</a>
+  </div>
+</footer>
+
+<script>
+// ANY.BODY ART — koncept 2 skript
+// Hamburger, sticky header, cursor-follow záře, bezpečný scroll-reveal.
+// Zásada: nic není defaultně skryté v CSS. JS jen PŘIDÁVÁ animaci navíc.
+// Pokud JS selže, obsah zůstává vidět.
+
+document.addEventListener("DOMContentLoaded", () => {
+  /* ---- Sticky header ---- */
+  const header = document.querySelector(".site-header");
+  if (header) {
+    const onScroll = () => {
+      header.classList.toggle("is-scrolled", window.scrollY > 40);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* ---- Hamburger / mobilní menu ---- */
+  const burger = document.querySelector(".hamburger");
+  const navMobile = document.querySelector(".nav-mobile");
+  if (burger && navMobile) {
+    burger.addEventListener("click", () => {
+      const open = burger.classList.toggle("is-open");
+      navMobile.classList.toggle("is-open", open);
+      document.body.style.overflow = open ? "hidden" : "";
+    });
+    navMobile.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        burger.classList.remove("is-open");
+        navMobile.classList.remove("is-open");
+        document.body.style.overflow = "";
+      });
+    });
+  }
+
+  /* ---- Scroll reveal — každý exponát se odkryje samostatně ----
+     Mezi "vyzbrojením" (přidáním skrytého stavu) a spuštěním
+     pozorování necháváme proběhnout dva animační snímky, aby
+     prohlížeč stihl vykreslit skrytý stav. Bez toho se u exponátů,
+     co jsou hned na startu ve viewportu, přechod "přeskočí" a
+     fotka se jen objeví bez animace. */
+  const revealEls = document.querySelectorAll(".reveal-item");
+  if ("IntersectionObserver" in window && revealEls.length) {
+    revealEls.forEach((el) => el.classList.add("js-armed"));
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.01, rootMargin: "0px 0px -15% 0px" }
+        );
+        revealEls.forEach((el) => io.observe(el));
+      });
+    });
+  }
+
+  /* Žádné glow objekty ani jejich JS už na stránce nejsou — pozadí
+     (jemný kouř) je čisté CSS, animované jen přes transform. */
+});
+
+</script>
+</body>
+</html>
