@@ -365,17 +365,20 @@ a { color: inherit; text-decoration: none; }
 .artwork-frame:hover::before { opacity: 1; }
 
 .placeholder-art {
-  aspect-ratio: var(--ar, 4 / 5);
   background: #f2f0f2;
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   cursor: default;
   transition: transform 0.5s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease;
   will-change: transform;
+}
+
+.placeholder-art img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .artwork-frame:hover .placeholder-art {
@@ -528,77 +531,128 @@ a { color: inherit; text-decoration: none; }
 
       <div class="artwork align-left">
         <div class="artwork-frame" style="--w: clamp(520px, 88vw, 1250px)">
-          <div class="placeholder-art" style="--ar: 3 / 2">
-<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M34 37c0-11.5 8-20.5 19-20.5S72 25 72 35.5c0 10-7.5 14.5-13 19-4.5 3.5-7 7.5-7 13.5" stroke="#0a0a0a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="52" cy="82.5" r="3.6" fill="#0a0a0a"/>
-</svg>
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/1.jpg" alt="Any.body Art — koncertní fotografie 1" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
 
       <div class="artwork align-right reveal-item">
         <div class="artwork-frame" style="--w: clamp(460px, 74vw, 1000px)">
-          <div class="placeholder-art" style="--ar: 4 / 5">
-<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M34 37c0-11.5 8-20.5 19-20.5S72 25 72 35.5c0 10-7.5 14.5-13 19-4.5 3.5-7 7.5-7 13.5" stroke="#0a0a0a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="52" cy="82.5" r="3.6" fill="#0a0a0a"/>
-</svg>
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/2.jpg" alt="Any.body Art — koncertní fotografie 2" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
 
       <div class="artwork align-center reveal-item">
         <div class="artwork-frame" style="--w: clamp(600px, 98vw, 1900px)">
-          <div class="placeholder-art" style="--ar: 21 / 9">
-<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M34 37c0-11.5 8-20.5 19-20.5S72 25 72 35.5c0 10-7.5 14.5-13 19-4.5 3.5-7 7.5-7 13.5" stroke="#0a0a0a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="52" cy="82.5" r="3.6" fill="#0a0a0a"/>
-</svg>
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/3.jpg" alt="Any.body Art — koncertní fotografie 3" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
 
       <div class="artwork align-left reveal-item">
         <div class="artwork-frame" style="--w: clamp(460px, 74vw, 1000px)">
-          <div class="placeholder-art" style="--ar: 1 / 1">
-<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M34 37c0-11.5 8-20.5 19-20.5S72 25 72 35.5c0 10-7.5 14.5-13 19-4.5 3.5-7 7.5-7 13.5" stroke="#0a0a0a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="52" cy="82.5" r="3.6" fill="#0a0a0a"/>
-</svg>
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/4.jpg" alt="Any.body Art — koncertní fotografie 4" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
 
       <div class="artwork align-right reveal-item">
         <div class="artwork-frame" style="--w: clamp(520px, 88vw, 1250px)">
-          <div class="placeholder-art" style="--ar: 3 / 2">
-<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M34 37c0-11.5 8-20.5 19-20.5S72 25 72 35.5c0 10-7.5 14.5-13 19-4.5 3.5-7 7.5-7 13.5" stroke="#0a0a0a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="52" cy="82.5" r="3.6" fill="#0a0a0a"/>
-</svg>
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/5.jpg" alt="Any.body Art — koncertní fotografie 5" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
 
       <div class="artwork align-center reveal-item">
         <div class="artwork-frame" style="--w: clamp(460px, 74vw, 1000px)">
-          <div class="placeholder-art" style="--ar: 4 / 5">
-<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M34 37c0-11.5 8-20.5 19-20.5S72 25 72 35.5c0 10-7.5 14.5-13 19-4.5 3.5-7 7.5-7 13.5" stroke="#0a0a0a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="52" cy="82.5" r="3.6" fill="#0a0a0a"/>
-</svg>
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/6.jpg" alt="Any.body Art — koncertní fotografie 6" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
 
       <div class="artwork align-left reveal-item">
         <div class="artwork-frame" style="--w: clamp(520px, 88vw, 1250px)">
-          <div class="placeholder-art" style="--ar: 16 / 9">
-<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M34 37c0-11.5 8-20.5 19-20.5S72 25 72 35.5c0 10-7.5 14.5-13 19-4.5 3.5-7 7.5-7 13.5" stroke="#0a0a0a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="52" cy="82.5" r="3.6" fill="#0a0a0a"/>
-</svg>
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/7.jpg" alt="Any.body Art — koncertní fotografie 7" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="artwork align-right reveal-item">
+        <div class="artwork-frame" style="--w: clamp(380px, 60vw, 780px)">
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/8.jpg" alt="Any.body Art — koncertní fotografie 8" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="artwork align-center reveal-item">
+        <div class="artwork-frame" style="--w: clamp(460px, 74vw, 1000px)">
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/9.jpg" alt="Any.body Art — koncertní fotografie 9" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="artwork align-left reveal-item">
+        <div class="artwork-frame" style="--w: clamp(520px, 88vw, 1250px)">
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/10.jpg" alt="Any.body Art — koncertní fotografie 10" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="artwork align-right reveal-item">
+        <div class="artwork-frame" style="--w: clamp(460px, 74vw, 1000px)">
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/11.jpg" alt="Any.body Art — koncertní fotografie 11" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="artwork align-center reveal-item">
+        <div class="artwork-frame" style="--w: clamp(600px, 98vw, 1900px)">
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/12.jpg" alt="Any.body Art — koncertní fotografie 12" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="artwork align-left reveal-item">
+        <div class="artwork-frame" style="--w: clamp(460px, 74vw, 1000px)">
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/13.jpg" alt="Any.body Art — koncertní fotografie 13" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="artwork align-right reveal-item">
+        <div class="artwork-frame" style="--w: clamp(520px, 88vw, 1250px)">
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/14.jpg" alt="Any.body Art — koncertní fotografie 14" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="artwork align-center reveal-item">
+        <div class="artwork-frame" style="--w: clamp(380px, 60vw, 780px)">
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/15.jpg" alt="Any.body Art — koncertní fotografie 15" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+      <div class="artwork align-left reveal-item">
+        <div class="artwork-frame" style="--w: clamp(600px, 98vw, 1900px)">
+          <div class="placeholder-art">
+            <img src="assets/img/koncerty/16.jpg" alt="Any.body Art — koncertní fotografie 16" loading="lazy" decoding="async">
           </div>
         </div>
       </div>
